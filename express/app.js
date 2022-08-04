@@ -37,16 +37,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// respone time
-app.use((req, res, next) => {
-    const start = Date.now();
-    res.on('finish', () => {
-        console.log(`${req.method} ${req.originalUrl} ${res.statusCode} ${Date.now() - start}ms`);
-    });
-    next();
-});
-
-
 // Routes
 const authRoutes = require('./routes/auth/auth.routes');
 const userRoutes = require('./routes/auth/user.routes');
@@ -55,21 +45,6 @@ const userRoutes = require('./routes/auth/user.routes');
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 
-app.get('/', (req, res) => {
-    res.json({
-        data: {
-            id: 1,
-            firstname: "porchouayang",
-            phone: 209125475,
-            user: {
-                id: 1,
-                username: "por",
-                password: '1234'
-            }
-
-        }
-    })
-})
 
 // error handler
 app.use((err, req, res, next) => {
